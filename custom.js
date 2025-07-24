@@ -38,7 +38,15 @@ for (let key in alphabetData) {
     typingText.innerHTML+=spanTag;
     });
 
+    typingText.scrollTop = 0;
+
     typingText.querySelectorAll("Span")[0].classList.add("active"); //shows the blinking underline to first char by default
+
+    typingText.querySelectorAll("span")[0].scrollIntoView({ 
+    behavior: "smooth", 
+    block: "nearest", 
+    inline: "start" 
+    }); // Fix: Scroll to the first character after generating the paragraph
 
     //focusing input field on keydown or click event(only when we click on the text inside paragraph)
 
@@ -151,7 +159,7 @@ function initTimer() {
 
 
 function resetGame(){
-    //calling randomParagraph generating function and resetting each variable and elements value to default;
+
     inpField.value="";
     clearInterval(timer);
     timeLeft=maxTime,
@@ -189,10 +197,13 @@ function showPopup() {
 
     const cpm = charIndex - mistake;
 
+    let remark = getWpmRating(wpm);
+
     popupMessage.innerHTML = `<br>
         ❌ Mistakes: <strong>${mistake}</strong><br><br>
         🔤 Characters Per Minute (CPM): <strong>${cpm}</strong><br><br>
-        📝 Words Per Minute (WPM): <strong>${wpm}</strong><br>
+        📝 Words Per Minute (WPM): <strong>${wpm}</strong><br><br>
+        ${remark}<br>
     `;
     popup.style.display = "flex";
 }
@@ -200,4 +211,11 @@ function showPopup() {
 function closePopup() {
     document.getElementById("popup").style.display = "none";
     resetGame();
+}
+
+function getWpmRating(wpm) {
+    if (wpm <= 20) return "🔴 <strong>Keep Practicing!</strong> You’re just getting started!";
+    else if (wpm <= 40) return "🟡 <strong>Getting There!</strong> Good progress, keep it up!";
+    else if (wpm <= 60) return "🟢 <strong>Well Done!</strong> You're typing confidently!";
+    else return "⭐ <strong>Typing Pro!</strong> You're crushing it!";
 }
