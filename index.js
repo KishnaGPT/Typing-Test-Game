@@ -159,6 +159,7 @@ function resetGame(){
 
 
 function showPopup() {
+
     const popup = document.getElementById("popup");
     const popupMessage = document.getElementById("popupMessage");
 
@@ -167,6 +168,8 @@ function showPopup() {
     wpm = wpm < 0 || !wpm || wpm === Infinity ? 0 : wpm;
 
     const cpm = charIndex - mistake;
+
+    let remark = getWpmRating(wpm);
 
     popupMessage.innerHTML = `<br>
         ❌ Mistakes: <strong>${mistake}</strong><br><br>
