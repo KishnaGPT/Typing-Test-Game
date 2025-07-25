@@ -142,7 +142,7 @@ body{
 }
 
 .typing-text p span.active{
-    color: #D9A299;
+    color: #98A1BC;
 }
 
 .typing-text p span.active::after{
