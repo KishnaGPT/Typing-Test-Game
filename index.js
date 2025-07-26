@@ -9,7 +9,7 @@ acuuracyTag = document.querySelector(".accuracy span b");
 tryAgainBtn = document.querySelector("button")
 
 let timer, 
-maxTime=10,
+maxTime=60,
 timeLeft = maxTime,
 accuracy = charIndex = mistake = isTyping = 0;
 
