@@ -5,12 +5,13 @@ mistakeTag = document.querySelector(".mistake span"),
 timeTag = document.querySelector(".time span b"),
 wpmTag = document.querySelector(".wpm span"),
 cpmTag = document.querySelector(".cpm span");
+acuuracyTag = document.querySelector(".accuracy span b");
 tryAgainBtn = document.querySelector("button")
 
 let timer, 
-maxTime=60,
+maxTime=10,
 timeLeft = maxTime,
-charIndex = mistake = isTyping = 0;
+accuracy = charIndex = mistake = isTyping = 0;
 
 
 function randomParagragh(){
@@ -113,9 +114,12 @@ function initTyping(){
         //if wpm value is 0, empty or infinity then setting it's value to 0
         wpm = wpm<0 || !wpm || wpm===Infinity ? 0:wpm;
 
+        let accuracy = charIndex > 0 ? Math.round(((charIndex - mistake) / charIndex) * 100) : 0;
+
         mistakeTag.innerText=mistake;
         wpmTag.innerText=wpm;
         cpmTag.innerText = charIndex - mistake; //since cpm doesnt count mistakes
+        acuuracyTag.innerText =accuracy;
 
     }
     else{
@@ -154,6 +158,7 @@ function resetGame(){
     mistakeTag.innerText=mistake;
     wpmTag.innerText=0;
     cpmTag.innerText = 0;
+    acuuracyTag.innerText=0;
 
 }
 
@@ -171,13 +176,17 @@ function showPopup() {
 
     let remark = getWpmRating(wpm);
 
+    let accuracy = charIndex > 0 ? Math.round(((charIndex - mistake) / charIndex) * 100) : 0;
+
     popupMessage.innerHTML = `<br>
         ❌ Mistakes: <strong>${mistake}</strong><br><br>
         🔤 Characters Per Minute (CPM): <strong>${cpm}</strong><br><br>
         📝 Words Per Minute (WPM): <strong>${wpm}</strong><br><br>
+        🎯 Accuracy: <strong>${accuracy}%</strong><br><br>
         ${remark}<br>
     `;
     popup.style.display = "flex";
+    popup.style.fontSize = "20px";
 }
 
 function closePopup() {
